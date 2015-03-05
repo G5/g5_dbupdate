@@ -2,4 +2,4 @@
 
 require 'g5-dbupdate'
 
-G5::DbUpdate.new.run if $0 == __FILE__
+G5::DbUpdate::Runner.new.run
