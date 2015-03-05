@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require 'g5-dbupdate'
+
+G5::DbUpdate.new.run if $0 == __FILE__
