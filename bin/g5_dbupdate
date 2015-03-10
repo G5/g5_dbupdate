@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
 
-require 'g5-dbupdate'
+require 'g5_dbupdate'
 
 G5::DbUpdate::Runner.new.run

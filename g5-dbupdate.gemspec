@@ -1,10 +1,10 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "g5-dbupdate/version"
+require "g5_dbupdate/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "g5-dbupdate"
+  spec.name          = "g5_dbupdate"
   spec.version       = G5::DbUpdate::VERSION
   spec.authors       = ["Marc Ignacio"]
   spec.email         = ["padi@users.noreply.github.com"]
@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
-  spec.executables   = ["g5-dbupdate"]
+  spec.executables   = ["g5_dbupdate"]
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 

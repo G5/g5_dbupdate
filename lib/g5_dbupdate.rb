@@ -1,4 +1,4 @@
-require "g5-dbupdate/version"
+require "g5_dbupdate/version"
 require 'rubygems'
 require 'commander'
 require 'yaml'
@@ -14,10 +14,10 @@ module G5
         program :description, 'Update local postgresql db from heroku postresql db'
 
         command :default do |c|
-          c.syntax = 'g5-dbupdate [options]'
+          c.syntax = 'g5_dbupdate [options]'
           c.summary = 'Update local postgresql db from heroku postresql db'
           c.description = 'Update local postgresql db from heroku postresql db'
-          c.example 'description', 'g5-dbupdate --clean --verbose'
+          c.example 'description', 'g5_dbupdate --clean --verbose'
           c.option '--verbose', 'verbose mode'
           c.option '--local', 'do not fetch from heroku db and use local latest.dump fetched previously'
           c.option '--clean', 'force removal of latest.dump after '

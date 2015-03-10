@@ -7,7 +7,7 @@ Update local postgresql db from heroku postresql db
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'g5-dbupdate'
+gem 'g5_dbupdate'
 ```
 
 And then execute:
@@ -21,15 +21,15 @@ While in the root of your rails app:
 ```ruby
 # Create a binstub for this gem.
 # Otherwise, you'll always have to add `bundle exec`
-bundle binstubs g5-dbupdate
+bundle binstubs g5_dbupdate
 
 # Default usage
-g5-dbupdate
+g5_dbupdate
 
 # Options
-g5-dbupdate --clean # remove fetched latest.dump after restoring local db
-g5-dbupdate --local # restore local db using previously fetched latest.dump
-g5-dbupdate --verbose # verbose mode
+g5_dbupdate --clean # remove fetched latest.dump after restoring local db
+g5_dbupdate --local # restore local db using previously fetched latest.dump
+g5_dbupdate --verbose # verbose mode
 ```
 
 ## Contributing
