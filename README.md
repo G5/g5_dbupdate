@@ -14,6 +14,11 @@ And then execute:
 
     $ bundle
 
+## Requirements
+
+  * psql (PostgreSQL) 9.3.5
+  * heroku toolbelt (https://toolbelt.heroku.com/)
+
 ## Usage
 
 While in the root of your rails app:
