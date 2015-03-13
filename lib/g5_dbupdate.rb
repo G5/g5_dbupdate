@@ -9,6 +9,11 @@ module G5
     class Runner
       include Commander::Methods
 
+      def log_and_run_shell(shell_cmd)
+        puts "running shell command: #{shell_cmd}"
+        system(shell_cmd)
+      end
+
       def run
         program :version, '0.0.1'
         program :description, 'Update local postgresql db from heroku postresql db'
@@ -25,16 +30,23 @@ module G5
             unless options.local
               app_name = ask("Name of heroku app: ")
               puts "Fetching latest db dump from heroku app (#{app_name})..."
-              system("curl -o latest.dump `heroku pgbackups:url --app #{app_name}`")
+              log_and_run_shell("curl -o latest.dump `heroku pgbackups:url --app #{app_name}`")
             end
 
             db_info = YAML.load_file('config/database.yml')
             destination_db = db_info["development"]["database"]
-            username = db_info["development"]["username"]
+            username = db_info["development"]["username"] || db_info["development"]["user"]
+            password = db_info["development"]["password"]
+            host = db_info["development"]["host"]
+            port = db_info["development"]["port"]
 
             puts "Restoring into #{destination_db}..."
+
             verbosity="--verbose" if options.verbose
-            system("pg_restore #{verbosity} --clean --no-acl --no-owner -U #{username} -d #{destination_db} latest.dump")
+
+            log_and_run_shell "dropdb #{destination_db}"
+            log_and_run_shell "createdb -T template0 #{destination_db}"
+            log_and_run_shell "pg_restore #{verbosity} --no-owner --username=#{username} --dbname=#{destination_db} latest.dump"
 
             if options.clean
               require 'fileutils'
