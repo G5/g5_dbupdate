@@ -37,6 +37,10 @@ g5_dbupdate --local # restore local db using previously fetched latest.dump
 g5_dbupdate --verbose # verbose mode
 ```
 
+## TODO
+
+* support database.yml with passwords
+
 ## Contributing
 
 1. Fork it ( https://github.com/[my-github-username]/g5-db-update/fork )
