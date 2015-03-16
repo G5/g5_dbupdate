@@ -1,6 +1,12 @@
 # G5::DbUpdate
 
-Update local postgresql db from heroku postresql db
+Replaces local postgresql db from heroku postresql db.
+* Takes credentials from your rails app's `config/database.yml`.
+
+# TODO
+
+* Does not support database w/ passwords as of the moment.
+  You still have to manually put the password when prompted.
 
 ## Installation
 
@@ -36,10 +42,6 @@ g5_dbupdate --clean # remove fetched latest.dump after restoring local db
 g5_dbupdate --local # restore local db using previously fetched latest.dump
 g5_dbupdate --verbose # verbose mode
 ```
-
-## TODO
-
-* support database.yml with passwords
 
 ## Contributing
 
