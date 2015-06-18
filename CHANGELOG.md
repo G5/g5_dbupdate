@@ -1,4 +1,4 @@
-# TBA
+# 0.0.3
 
 - Move away from deprecated `pgbackups` to new `pg:backups`
 - Save dump file in `tmp`
