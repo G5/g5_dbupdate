@@ -2,6 +2,7 @@ require "g5_dbupdate/version"
 require 'rubygems'
 require 'commander'
 require 'yaml'
+require 'fileutils'
 
 module G5
   module DbUpdate
@@ -30,7 +31,9 @@ module G5
             unless options.local
               app_name = ask("Name of heroku app: ")
               puts "Fetching latest db dump from heroku app (#{app_name})..."
-              log_and_run_shell("curl -o latest.dump `heroku pgbackups:url --app #{app_name}`")
+              url = `heroku pg:backups public-url --app #{app_name} | cat`
+              FileUtils.mkdir 'tmp'
+              log_and_run_shell("curl -o tmp/latest.dump #{url}")
             end
 
             db_info = YAML.load_file('config/database.yml')
@@ -49,7 +52,6 @@ module G5
             log_and_run_shell "pg_restore #{verbosity} --no-owner --username=#{username} --dbname=#{destination_db} latest.dump"
 
             if options.clean
-              require 'fileutils'
               puts "Deleting latest.dump..."
               FileUtils.rm 'latest.dump'
             end
