@@ -1,3 +1,8 @@
+# TBA
+
+- Move away from deprecated `pgbackups` to new `pg:backups`
+- Save dump file in `tmp`
+
 # 0.0.2
 
 - renamed gem from g5-dbupdate to g5_dbupdate

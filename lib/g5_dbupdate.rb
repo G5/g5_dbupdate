@@ -26,13 +26,13 @@ module G5
           c.example 'description', 'g5_dbupdate --clean --verbose'
           c.option '--verbose', 'verbose mode'
           c.option '--local', 'do not fetch from heroku db and use local latest.dump fetched previously'
-          c.option '--clean', 'force removal of latest.dump after restoring local db'
+          c.option '--clean', 'force removal of tmp/latest.dump after restoring local db'
           c.action do |args, options|
             unless options.local
               app_name = ask("Name of heroku app: ")
               puts "Fetching latest db dump from heroku app (#{app_name})..."
               url = `heroku pg:backups public-url --app #{app_name} | cat`
-              FileUtils.mkdir 'tmp'
+              FileUtils.mkdir_p 'tmp'
               log_and_run_shell("curl -o tmp/latest.dump #{url}")
             end
 
@@ -49,11 +49,11 @@ module G5
 
             log_and_run_shell "dropdb #{destination_db}"
             log_and_run_shell "createdb -T template0 #{destination_db}"
-            log_and_run_shell "pg_restore #{verbosity} --no-owner --username=#{username} --dbname=#{destination_db} latest.dump"
+            log_and_run_shell "pg_restore #{verbosity} --no-owner --username=#{username} --dbname=#{destination_db} tmp/latest.dump"
 
             if options.clean
-              puts "Deleting latest.dump..."
-              FileUtils.rm 'latest.dump'
+              puts "Deleting tmp/latest.dump..."
+              FileUtils.rm 'tmp/latest.dump'
             end
           end
         end
