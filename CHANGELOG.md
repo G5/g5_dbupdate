@@ -1,4 +1,4 @@
-# TBA
+# 0.0.4
 
 - Fix `curl` call
 
