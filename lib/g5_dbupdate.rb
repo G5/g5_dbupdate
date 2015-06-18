@@ -31,9 +31,9 @@ module G5
             unless options.local
               app_name = ask("Name of heroku app: ")
               puts "Fetching latest db dump from heroku app (#{app_name})..."
-              url = `heroku pg:backups public-url --app #{app_name} | cat`
+              url = `heroku pg:backups public-url --app #{app_name} | cat`.chomp
               FileUtils.mkdir_p 'tmp'
-              log_and_run_shell("curl -o tmp/latest.dump #{url}")
+              log_and_run_shell("curl -o tmp/latest.dump '#{url}'")
             end
 
             db_info = YAML.load_file('config/database.yml')

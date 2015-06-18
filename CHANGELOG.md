@@ -1,3 +1,7 @@
+# TBA
+
+- Fix `curl` call
+
 # 0.0.3
 
 - Move away from deprecated `pgbackups` to new `pg:backups`
