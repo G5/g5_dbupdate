@@ -1,0 +1,23 @@
+# test fixture for spec/lib/g5_dbupdate_spec.rb
+default: &default
+  pool: <%= ENV["DB_POOL"] || ENV['MAX_THREADS'] || 5 %>
+
+production:
+  <<: *default
+
+development:
+  <<: *default
+  adapter: postgresql
+  encoding: unicode
+  database: <%= ENV["DB_NAME"] %>
+  username: <%= ENV["DB_USERNAME"] %>
+  password: <%= ENV["DB_PASSWORD"] %>
+
+test:
+  <<: *default
+  adapter: postgresql
+  encoding: unicode
+  database: <%= ENV["DB_NAME"] %>
+  username: <%= ENV["DB_USERNAME"] %>
+  password: <%= ENV["DB_PASSWORD"] %>
+
