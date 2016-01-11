@@ -43,6 +43,18 @@ g5_dbupdate --local # restore local db using previously fetched latest.dump
 g5_dbupdate --verbose # verbose mode
 ```
 
+## Testing
+
+Run tests via `rspec spec`
+
+```sh
+$rspec spec
+.
+
+Finished in 0.05227 seconds (files took 0.36588 seconds to load)
+1 example, 0 failures
+```
+
 ## Contributing
 
 1. Fork it ( https://github.com/g5/g5-db-update/fork )

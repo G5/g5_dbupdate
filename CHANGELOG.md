@@ -1,3 +1,8 @@
+# 0.0.5
+
+- Load environment variables in `.env` and `.env.development` (if any) using [Dotenv](https://github.com/bkeepers/dotenv).
+  - adds 'dotenv' as a dependency
+
 # 0.0.4
 
 - Fix `curl` call
