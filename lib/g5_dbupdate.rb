@@ -64,23 +64,40 @@ module G5
         destination_db = db_info["development"]["database"]
         username = db_info["development"]["username"] || db_info["development"]["user"]
         password = db_info["development"]["password"]
-        host = db_info["development"]["host"]
-        port = db_info["development"]["port"]
+        host = db_info["development"]["host"] || "localhost"
+        port = db_info["development"]["port"] || "5432"
 
         puts "Restoring into #{destination_db}..."
 
         verbosity="--verbose" if options.verbose
 
-        log_and_run_shell "dropdb #{destination_db}"
-        log_and_run_shell "createdb -T template0 #{destination_db}"
-        log_and_run_shell([
+        connection_opts = [
+          "--username=#{username}",
+          "--host=#{host}",
+          "--port=#{port}",
+        ]
+        connection_opts << "--password=#{password}" if !password.nil?
+
+        dropdb_command = ["dropdb"]
+        dropdb_command += connection_opts
+        dropdb_command << destination_db
+        log_and_run_shell dropdb_command.join(" ")
+
+        createdb_command = ["createdb"]
+        createdb_command += connection_opts
+        createdb_command << "--template=template0"
+        createdb_command << destination_db
+        log_and_run_shell createdb_command.join(" ")
+
+        pg_restore_command = [
           "pg_restore",
           verbosity,
           "--no-owner",
-          "--username=#{username}",
           "--dbname=#{destination_db}",
-          "tmp/latest.dump",
-        ].join(" "))
+        ]
+        pg_restore_command += connection_opts
+        pg_restore_command << "tmp/latest.dump"
+        log_and_run_shell(pg_restore_command.join(" "))
 
         if options.clean
           puts "Deleting tmp/latest.dump..."
