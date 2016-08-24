@@ -3,6 +3,7 @@ require 'rubygems'
 require 'commander'
 require 'yaml'
 require 'fileutils'
+require "open3"
 
 module G5
   module DbUpdate
@@ -12,7 +13,11 @@ module G5
 
       def log_and_run_shell(shell_cmd)
         puts "running shell command: #{shell_cmd}"
-        system(shell_cmd)
+        stdout_str, stderr_str, status = Open3.capture3(shell_cmd)
+        unless status.success?
+          fail(ArgumentError, "Error executing command: #{stderr_str}")
+        end
+        stdout_str.chomp
       end
 
       def load_db_info
