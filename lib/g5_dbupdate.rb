@@ -73,7 +73,14 @@ module G5
 
         log_and_run_shell "dropdb #{destination_db}"
         log_and_run_shell "createdb -T template0 #{destination_db}"
-        log_and_run_shell "pg_restore #{verbosity} --no-owner --username=#{username} --dbname=#{destination_db} tmp/latest.dump"
+        log_and_run_shell([
+          "pg_restore",
+          verbosity,
+          "--no-owner",
+          "--username=#{username}",
+          "--dbname=#{destination_db}",
+          "tmp/latest.dump",
+        ].join(" "))
 
         if options.clean
           puts "Deleting tmp/latest.dump..."
