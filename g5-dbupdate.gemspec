@@ -23,5 +23,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_dependency "dotenv", "~> 2.0"
   spec.add_dependency "commander", "~> 4.3"
-  spec.add_dependency "heroku", "~> 3.12"
+  spec.add_development_dependency "gemfury_helpers", "~> 1.0"
 end
